@@ -1,30 +1,50 @@
 #!/usr/bin/python3
-"""
-This is the "0-add_integer" module
-for the Holberton School Higher Level Programming track.
+"""A module to add two numbers
 
-The 0-add_integer module supplies one function, add_integer(). For example,
+This module performs the addition operation between two numbers,
+these numbers can be integers or floats.
 
->>> add_integer(13, 29)
-42
 """
 
 
 def add_integer(a, b=98):
-    """ Returns the sum of two int/float parameters. """
-    if not type(a) == int:
-        if type(a) == float:
-            a = int(a)
-        else:
-            raise TypeError("a must be an integer")
-    if not type(b) == int:
-        if type(b) == float:
-            b = int(b)
-        else:
-            raise TypeError("b must be an integer")
+    """Adds two numbers
+
+    Performs the addition between two numbers.
+
+    Args:
+        a (:obj:`int, float`): The first number.
+        b (:obj:`int, float`, optional): The second number.
+
+    Returns:
+        int: The result of the addition.
+
+    """
+    if type(a) not in (int, float):
+        raise TypeError('a must be an integer')
+
+    if type(b) not in (int, float):
+        raise TypeError('b must be an integer')
+
+    a = convert_to_int(a)
+    b = convert_to_int(b)
     return a + b
 
 
-if __name__ == "__main__":
-    import doctest
-    doctest.testfile("tests/0-add_integer.txt")
+def convert_to_int(num):
+    """Cast the data type of num parameter
+
+    Convert a float number to a integer number
+
+    Args:
+        num (:obj:`int, float`): The number to cast.
+
+    Returns:
+        int: The number casted to integer.
+
+    """
+    if type(num) is float:
+        num = int(num)
+        return num
+
+    return num

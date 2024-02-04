@@ -1,51 +1,163 @@
 #!/usr/bin/python3
-"""
-This is the "2-matrix_divided" module
-for the Holberton School Higher Level Programming track.
+"""A module to divides all elements of a matrix.
 
-The 2-matrix_divided module supplies one function, matrix_divided().
-For example,
+This module is in charge of dividing all the values of a matrix
+according to a divisor given by the user. For the program to work
+properly, the following aspects must be taken into account:
 
->>> matrix = [     # doctest: +ELLIPSIS
-...     [1, 2, 3],
-...     [4, 5, 6]
-... ]
->>> print(matrix_divided(matrix, 3)) # doctest: +NORMALIZE_WHITESPACE
-[[0.33, 0.67, 1.0],
- [1.33, 1.67, 2.0]]
+    * The matrix must  must be a list of lists of integers or floats.
+    * Each row of the matrix must be of the same size.
+    * The divisor must be a number (integer or float) other than 0.
+    * The division of all elements of the matrix is rounded off
+    to 2 decimal places.
+    * The result is delivered in a new matrix.
 
->>> print(matrix) # doctest: +NORMALIZE_WHITESPACE
-[[1, 2, 3],
- [4, 5, 6]]
 """
 
 
 def matrix_divided(matrix, div):
-    """ Returns matrix with all numerical values divided by div. """
+    """Divides all elements of a matrix.
 
-    # check matrix is list of lists
-    BAD_MATRIX = "matrix must be a matrix (list of lists) of integers/floats"
-    if type(matrix) != list or any(map(lambda _: type(_) != list, matrix)):
-        raise TypeError(BAD_MATRIX)
+    This function takes the data sent by the user to verify
+    that the matrix contains lists within it and that each
+    list contains integer or floating type numbers.
+    The result of the splitting operation is then added to a
+    new list in a new matrix with the same matrix structure
+    given by the user.
 
-    # check div is integer or float, not zero
-    if type(div) not in (int, float):
-        raise TypeError("div must be a number")
+    In case the format of the matrix is incorrect
+    or the divisor is not a number, this function
+    will raise an error.
+
+    Args:
+        matrix (:obj:`list` of :obj:`list`): The matrix to be divided.
+        div (int): The divisor number.
+
+    Returns:
+        list: A new matrix with all elements divided.
+
+    Raises:
+        TypeError: If `matrix` list of lists of integers or floats or
+            if `div` is not a number.
+        ZeroDivisionError: If `div` is equal to `0`.
+
+    """
+
+    check_for_list(matrix)
+    check_for_divisor(div)
+
+    elem_sizes = set()
+    new_list = list()
+
+    for elem in matrix:
+        if check_for_list(elem) is False:
+            raises_matrix_type_error()
+
+        elem_sizes = check_row_size_inconsistency(elem_sizes, elem)
+        values = []
+
+        for value in elem:
+            if check_for_number(value) is False:
+                raises_matrix_type_error()
+
+            values.append(round(value / div, 2))
+
+        new_list.append(values)
+
+    return new_list
+
+
+def check_for_list(value):
+    """
+
+    Check if the value is of type list
+
+    Args:
+        value (any): The value to verify.
+
+    Raises:
+        TypeError: If `value` isn't a list.
+
+    """
+
+    if type(value) is not list or len(value) == 0:
+        raises_matrix_type_error()
+
+
+def check_for_divisor(div):
+    """
+
+    Check if the divisor is integer, float or zero
+
+    Args:
+        div (any): The divisor to verify.
+
+    Raises:
+        TypeError: If `value` isn't integer or float.
+        ZeroDivisionError: If `div` is equal to `0`.
+
+    """
+
+    if check_for_number(div) is False:
+        raise TypeError('div must be a number')
+
     if div == 0:
-        raise ZeroDivisionError("division by zero")
-
-    # check all rows are same length
-    if min(matrix, key=len) != max(matrix, key=len):
-        raise TypeError("Each row of the matrix must have the same size")
-
-    # check all elements are integer or float
-    for row in matrix:
-        if any(map(lambda _: type(_) not in (int, float), row)):
-            raise TypeError(BAD_MATRIX)
-
-    return [[round(i / div, 2) for i in row] for row in matrix]
+        raise ZeroDivisionError('division by zero')
 
 
-if __name__ == "__main__":
-    import doctest
-    doctest.testfile("tests/2-matrix_divided.txt")
+def check_for_number(value):
+    """Check if the value is integer or float
+
+    Args:
+        value (any): The value to verify.
+
+    Returns:
+        bool: True if successful, False otherwise.
+
+    """
+
+    if type(value) is not int and type(value) is not float:
+        return False
+
+    """ Check for a NaN value """
+    if value != value:
+        return False
+
+    return True
+
+
+def check_row_size_inconsistency(elem_sizes, row):
+    """Checks the size consistency of rows in a matrix
+
+    Check if all rows in the matrix are inconsistently sized
+
+    Args:
+        elem_sizes (:obj:`set` of :obj:`int`): Size of each row matrix.
+        row (list): A row with elements to divide.
+
+    Returns:
+        set: A unique consistent size between all rows.
+
+    Raises:
+        TypeError: If `elem_sizes` has more than one size in its contents.
+
+    """
+
+    elem_sizes.add(len(row))
+
+    if len(elem_sizes) > 1:
+        raise TypeError('Each row of the matrix must have the same size')
+
+    return elem_sizes
+
+
+def raises_matrix_type_error():
+    """Raises a Matrix TypeError
+
+    Raises:
+        TypeError: If `matrix` list of lists of integers or floats.
+
+    """
+
+    raise TypeError('matrix must be a matrix \
+(list of lists) of integers/floats')

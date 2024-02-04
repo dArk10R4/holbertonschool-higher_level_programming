@@ -6,30 +6,28 @@ max_integer = __import__('6-max_integer').max_integer
 
 
 class TestMaxInteger(unittest.TestCase):
-    """Unittest class for max_integer function"""
-    def setUp(self):
-        pass
+    """
+    A class to test a max integer function
+    """
 
-    def test_empty(self):
-        self.assertEqual(max_integer([]), None)
+    def test_max_integer(self):
+        """
+        Test the max integer in a list of integers when the integers
+        are positive or negative numbers
+        """
+        self.assertIsNone(max_integer([]))
+        self.assertAlmostEqual(max_integer([1, 2, 3, 4, 5]), 5)
+        self.assertAlmostEqual(max_integer([-4, -3, -2, -1, 0]), 0)
+        self.assertAlmostEqual(max_integer([-90, -120, -150, -180]), -90)
+        self.assertAlmostEqual(max_integer([1.0, 1.5, 1.6, 3.7, 2.3]), 3.7)
+        self.assertAlmostEqual(max_integer([7.7]), 7.7)
 
-    def test_single(self):
-        self.assertEqual(max_integer([3]), 3)
+    def test_wrong_types(self):
+        """
+        Test the max integer with wrong parameters types
+        """
+        with self.assertRaises(TypeError):
+            max_integer(None)
 
-    def test_ascending(self):
-        self.assertEqual(max_integer([1, 2, 3]), 3)
-
-    def test_descending(self):
-        self.assertEqual(max_integer([3, 2, 1]), 3)
-
-    def test_middle(self):
-        self.assertEqual(max_integer([2, 3, 1]), 3)
-
-    def test_single_negative(self):
-        self.assertEqual(max_integer([2, 3, -1]), 3)
-
-    def test_all_negatives(self):
-        self.assertEqual(max_integer([-2, -3, -1]), -1)
-
-    def tearDown(self):
-        pass
+        with self.assertRaises(TypeError):
+            max_integer(["Monty", 89, 34, -9.7, "Python"])

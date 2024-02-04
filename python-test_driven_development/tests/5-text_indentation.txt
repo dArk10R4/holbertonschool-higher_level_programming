@@ -1,70 +1,121 @@
-The ``5-text_indentation`` module
-=================================
+===============================
+4. Text indentation module
+===============================
 
-Using ``text_indentation``
---------------------------
+Import module:
+==============
+    >>> text_indentation = __import__('5-text_indentation').text_indentation
 
-	>>> text_indentation = __import__("5-text_indentation").text_indentation
 
-	>>> 0 < len(__import__("5-text_indentation").__doc__)
-	True
+Function:
+=========
+Write a function that prints a text with 2 new lines after
+each of these characters: ., ? and :
 
-	>>> 0 < len(__import__("5-text_indentation").text_indentation.__doc__)
-	True
 
-	>>> text_indentation("")
+Notes:
+===========
+    * text must be a string, otherwise raise a TypeError exception
+    with the message 'text must be a string'.
 
-	>>> text_indentation("A")
-	A
+    * There should be no space at the beginning or at the
+    end of each printed line.
 
-	>>> text_indentation("?")
-	?
-	<BLANKLINE>
 
-	>>> text_indentation(" : ")
-	:
-	<BLANKLINE>
+Section // Non-Parameters
+=========================
 
-	>>> text = """Lorem ipsum dolor sit amet, consectetur adipiscing elit.\
-	... Quonam modo? Utrum igitur tibi litteram videor an totas paginas commovere? \
-	... Non autem hoc: igitur ne illud quidem. Fortasse id optimum, sed ubi illud: \
-	... Plus semper voluptatis? Teneo, inquit, finem illi videri nihil dolere. \
-	... Transfer idem ad modestiam vel temperantiam, quae est moderatio cupiditatum \
-	... rationi oboediens. Si id dicis, vicimus. Inde sermone vario sex illa a Dipylo \
-	... stadia confecimus. Sin aliud quid voles, postea. Quae animi affectio suum \
-	... cuique tribuens atque hanc, quam dico. Utinam quidem dicerent alium alio \
-	... beatiorem! Iam ruinas videres"""
+Test case #0: A test case without parameters
 
-	>>> text_indentation(text)
-	Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-	<BLANKLINE>
-	Quonam modo?
-	<BLANKLINE>
-	Utrum igitur tibi litteram videor an totas paginas commovere?
-	<BLANKLINE>
-	Non autem hoc:
-	<BLANKLINE>
-	igitur ne illud quidem.
-	<BLANKLINE>
-	Fortasse id optimum, sed ubi illud:
-	<BLANKLINE>
-	Plus semper voluptatis?
-	<BLANKLINE>
-	Teneo, inquit, finem illi videri nihil dolere.
-	<BLANKLINE>
-	Transfer idem ad modestiam vel temperantiam, quae est moderatio cupiditatum rationi oboediens.
-	<BLANKLINE>
-	Si id dicis, vicimus.
-	<BLANKLINE>
-	Inde sermone vario sex illa a Dipylo stadia confecimus.
-	<BLANKLINE>
-	Sin aliud quid voles, postea.
-	<BLANKLINE>
-	Quae animi affectio suum cuique tribuens atque hanc, quam dico.
-	<BLANKLINE>
-	Utinam quidem dicerent alium alio beatiorem! Iam ruinas videres
-	
-	>>> text_indentation(-1)
-	Traceback (most recent call last):
-		...
-	TypeError: text must be a string
+    >>> text_indentation()
+    Traceback (most recent call last):
+    TypeError: text_indentation() missing 1 required positional argument: 'text'
+
+
+Section // Correct Parameters
+=============================
+
+Test case #1: A test case with a short text
+
+    >>> text_indentation('Monty Python')
+    Monty Python
+
+Test case #2: A test case with a short text and a character for 2 new lines
+
+    >>> text_indentation('Ponty Mython?')
+    Ponty Mython?
+    <BLANKLINE>
+
+Test case #3: A test case with a short text and characters for 6 new lines
+
+    >>> text_indentation("Hello world. Monty Python? It's is:")
+    Hello world.
+    <BLANKLINE>
+    Monty Python?
+    <BLANKLINE>
+    It's is:
+    <BLANKLINE>
+
+Test case #4: A test case with a text with a special format
+
+    >>> text_indentation("""Bye world. \
+    ... Python Monty? \
+    ... Isn't""")
+    Bye world.
+    <BLANKLINE>
+    Python Monty?
+    <BLANKLINE>
+    Isn't
+
+Test case #5: A test case with only spaces and characters to prints newlines
+
+    >>> text_indentation("   ?:.   ")
+    ?
+    <BLANKLINE>
+    :
+    <BLANKLINE>
+    .
+    <BLANKLINE>
+
+Test case #6: Another test case with only spaces and characters to prints newlines
+
+    >>> text_indentation("  .??:?.  ")
+    .
+    <BLANKLINE>
+    ?
+    <BLANKLINE>
+    ?
+    <BLANKLINE>
+    :
+    <BLANKLINE>
+    ?
+    <BLANKLINE>
+    .
+    <BLANKLINE>
+
+Section // Incorrect Parameters
+===============================
+
+Test case #7: A test case with an integer parameter
+
+    >>> text_indentation(15)
+    Traceback (most recent call last):
+    TypeError: text must be a string
+
+Test case #8: A test case with an boolean parameter
+
+    >>> text_indentation(True)
+    Traceback (most recent call last):
+    TypeError: text must be a string
+
+Test case #9: A test case with a data type parameter
+
+    >>> text_indentation(str)
+    Traceback (most recent call last):
+    TypeError: text must be a string
+
+Test case #10: A test case with an infinite float number
+
+    >>> text_indentation(1e400)
+    Traceback (most recent call last):
+    TypeError: text must be a string

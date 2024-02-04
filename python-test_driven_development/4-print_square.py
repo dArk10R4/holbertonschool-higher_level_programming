@@ -1,31 +1,43 @@
 #!/usr/bin/python3
 """
-This is the "4-print_square" module
-for the Holberton School Higher Level Programming track.
 
-The 4-print_square module supplies one function, matrix_divided().
-For example,
+This module prints a square with the character '#'
+of any positive integer size.
 
->>> print_square(4)
-####
-####
-####
-####
+Example:
+
+    ###
+    ###
+    ###
+
+    * The size must be an integer greater than 0.
 
 """
 
 
 def print_square(size):
-    """ Prints a square made with the char `#`. """
+    """
+
+    Prints the names
+
+    Args:
+        size (int): The size of the square to prints.
+
+    Raises:
+        TypeError: If `size` isn't integer.
+        ValueError: If `size` is less than 0.
+
+    """
 
     if type(size) is not int:
-        raise TypeError("size must be an integer")
-    elif size < 0:
-        raise ValueError("size must be >= 0")
-    elif size > 0:
-        print(('#' * size + '\n') * size, end="")
+        raise TypeError('size must be an integer')
 
+    if size < 0:
+        raise ValueError('size must be >= 0')
 
-if __name__ == "__main__":
-    import doctest
-    doctest.testfile("tests/4-print_square.txt")
+    for i in range(1, size + 1):
+        for j in range(1, size + 1):
+            print('#', end='')
+
+            if j % size == 0 and j > 0:
+                print()
