@@ -1,50 +1,30 @@
 #!/usr/bin/python3
+"""class Square that defines a square"""
+
+
 class Square:
-    """Square Class
-
-    A Square Class
-
-    """
+    """class Square that defines a square"""
 
     def __init__(self, size=0):
-        """__init__
-
-        The __init__ method initializes the size value of the square.
-
-        Attributes:
-            size (:obj:`int`, optional): The size of the square.
-
-        Raises:
-            TypeError: If `size` type is not `int`.
-
-            ValueError: If `size` is less than `0`.
-
-        """
-
-        if type(size) is not int:
-            raise TypeError('size must be an integer')
-
-        if size < 0:
-            raise ValueError('size must be >= 0')
-
-        self.size = size
+        """Instantiation with optional size"""
+        self.__size = size
 
     @property
     def size(self):
+        """property to retrieve it"""
         return self.__size
 
     @size.setter
-    def size(self, size):
-        if type(size) is not int:
-            raise TypeError('size must be an integer')
-
-        if size < 0:
-            raise ValueError('size must be >= 0')
-
-        self.__size = size
+    def size(self, value):
+        """property setter to set it"""
+        if type(value) is int:
+            if value >= 0:
+                self.__size = value
+            else:
+                raise ValueError("size must be >= 0")
+        else:
+            raise TypeError("size must be an integer")
 
     def area(self):
-        """Returns the current square area
-
-        """
-        return self.__size ** 2
+        """Public instance method that returns the current square area"""
+        return self.__size * self.__size
