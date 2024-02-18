@@ -121,7 +121,7 @@ class Rectangle(Base):
         Method Documenta
         '''
         if args:
-            arr = ["id", "width", "height", "x", "y"] 
+            arr = ["id", "_Rectangle__width", "_Rectangle__height", "_Rectangle__x", "_Rectangle__y"]
             for i in range(min(len(args), 5)):
                 self.__dict__[arr[i]]= args[i]
 
