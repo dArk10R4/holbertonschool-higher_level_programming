@@ -123,7 +123,7 @@ class Rectangle(Base):
         if args:
             arr = ["id", "_Rectangle__width", "_Rectangle__height", "_Rectangle__x", "_Rectangle__y"]
             for i in range(min(len(args), 5)):
-                self.__dict__[arr[i]]= args[i]
+                self.__dict__[arr[i]] = args[i]
 
         elif kwargs:
             for key, value in kwargs.items():
