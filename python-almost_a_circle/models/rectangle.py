@@ -121,14 +121,10 @@ class Rectangle(Base):
         Method Documenta
         '''
         if args:
-            arr = [self.id, self.width, self.height, self.x, self.y] 
+            arr = ["id", "width", "height", "x", "y"] 
             for i in range(min(len(args), 5)):
-                arr[i] = args[i]
-            # self.id = args[0]
-            # self.width = args[1]
-            # self.height = args[2]
-            # self.x = args[3]
-            # self.y = args[4]
+                self.__dict__[arr[i]]= args[i]
+
         elif kwargs:
             for key, value in kwargs.items():
                 setattr(self, key, value)
